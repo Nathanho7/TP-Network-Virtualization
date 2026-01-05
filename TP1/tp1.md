@@ -1,0 +1,97 @@
+# Part 1 : Most simplest LAN
+
+## 3. Know your MAC
+
+🌞 Déterminer l'adresse MAC de vos deux machines
+```sh
+- node1
+
+VPCS> ip 10.1.1.1/24
+Checking for duplicate address...
+PC1 : 10.1.1.1 255.255.255.0
+
+VPCS> show
+
+NAME   IP/MASK              GATEWAY           MAC                LPORT  RHOST:PORT
+VPCS1  10.1.1.1/24          0.0.0.0           00:50:79:66:68:00  10000  127.0.0.1:10001
+       fe80::250:79ff:fe66:6800/64
+
+- node2
+VPCS> ip 10.1.1.2/24
+Checking for duplicate address...
+PC1 : 10.1.1.2 255.255.255.0
+
+VPCS> show
+
+NAME   IP/MASK              GATEWAY           MAC                LPORT  RHOST:PORT
+VPCS1  10.1.1.2/24          0.0.0.0           00:50:79:66:68:01  10002  127.0.0.1:10003
+       fe80::250:79ff:fe66:6801/64
+
+```
+
+## 4. IP Setup¶
+
+🌞 Définir une IP statique sur les deux machines
+
+```sh
+J’ai utilisé la commande [ip] , puis renseigné l'IP de la machine pour mettre une adresse IP statique sur les machines dans GNS3.
+VPCS> ip 10.1.1.1/24
+Checking for duplicate address...
+PC1 : 10.1.1.1 255.255.255.0
+
+VPCS> ip 10.1.1.2/24
+Checking for duplicate address...
+PC1 : 10.1.1.2 255.255.255.0
+```
+
+🌞 Proof !
+```sh
+VPCS> show
+
+NAME   IP/MASK              GATEWAY           MAC                LPORT  RHOST:PORT
+VPCS1  10.1.1.1/24          0.0.0.0           00:50:79:66:68:00  10000  127.0.0.1:10001
+       fe80::250:79ff:fe66:6800/64
+VPCS> show
+
+NAME   IP/MASK              GATEWAY           MAC                LPORT  RHOST:PORT
+VPCS1  10.1.1.2/24          0.0.0.0           00:50:79:66:68:01  10002  127.0.0.1:10003
+       fe80::250:79ff:fe66:6801/64
+```
+
+🌞 Effectuer un ping d'une machine à l'autre
+- Ping de node2 depuis node1
+```sh
+VPCS> ping 10.1.1.2
+84 bytes from 10.1.1.2 icmp_seq=1 ttl=64 time=1.049 ms
+84 bytes from 10.1.1.2 icmp_seq=2 ttl=64 time=0.438 ms
+84 bytes from 10.1.1.2 icmp_seq=3 ttl=64 time=1.134 ms
+84 bytes from 10.1.1.2 icmp_seq=4 ttl=64 time=2.044 ms
+84 bytes from 10.1.1.2 icmp_seq=5 ttl=64 time=1.875 ms
+```
+
+- Ping de node 1 depuis node2
+
+```sh
+VPCS> ping 10.1.1.1
+84 bytes from 10.1.1.1 icmp_seq=1 ttl=64 time=1.404 ms
+84 bytes from 10.1.1.1 icmp_seq=2 ttl=64 time=1.053 ms
+84 bytes from 10.1.1.1 icmp_seq=3 ttl=64 time=0.904 ms
+84 bytes from 10.1.1.1 icmp_seq=4 ttl=64 time=1.928 ms
+84 bytes from 10.1.1.1 icmp_seq=5 ttl=64 time=1.263 ms
+
+```
+
+# 5. Analyze
+
+🌞 Protocolz ?
+
+```sh
+Protocole utilisé ICMP ( Internet Control Message Protocol) : il appartient à la couche 3 du modèle OSI. (couche Réseau) 
+Autre, lors l'execution du ping, le protocole ICMP envoie un datagramme à l'hôte spécifié et attend la réponse. Le protocole ICMP permet de gérer les erreurs se produisant sur les réseaux TCP/IP.
+```
+
+
+
+
+
+
