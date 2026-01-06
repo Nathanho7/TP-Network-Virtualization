@@ -90,8 +90,64 @@ Protocole utilisé ICMP ( Internet Control Message Protocol) : il appartient à 
 Autre, lors l'execution du ping, le protocole ICMP envoie un datagramme à l'hôte spécifié et attend la réponse. Le protocole ICMP permet de gérer les erreurs se produisant sur les réseaux TCP/IP.
 ```
 
+# Part 2 : Bring that switch in
 
 
+# 3. Même chose en fast
 
+🌞 Déterminer l'adresse MAC de vos trois machines
+
+```sh
+VPCS> show
+
+NAME   IP/MASK              GATEWAY           MAC                LPORT  RHOST:PORT
+VPCS1  10.1.1.1/24          0.0.0.0           00:50:79:66:68:00  10000  127.0.0.1:10001
+       fe80::250:79ff:fe66:6800/64
+
+VPCS> show
+
+NAME   IP/MASK              GATEWAY           MAC                LPORT  RHOST:PORT
+VPCS1  10.1.1.2/24          0.0.0.0           00:50:79:66:68:01  10002  127.0.0.1:10003
+       fe80::250:79ff:fe66:6801/64
+
+  VPCS> show
+
+NAME   IP/MASK              GATEWAY           MAC                LPORT  RHOST:PORT
+VPCS1  10.1.1.3/24          0.0.0.0           00:50:79:66:68:02  10010  127.0.0.1:10011
+       fe80::250:79ff:fe66:6802/64
+```
+
+🌞 Définir une IP statique sur les trois machines
+
+```sh
+-node1
+VPCS> show
+
+NAME   IP/MASK              GATEWAY           MAC                LPORT  RHOST:PORT
+VPCS1  10.1.1.1/24          0.0.0.0           00:50:79:66:68:00  10000  127.0.0.1:10001
+       fe80::250:79ff:fe66:6800/64
+
+-node2
+VPCS> show
+
+NAME   IP/MASK              GATEWAY           MAC                LPORT  RHOST:PORT
+VPCS1  10.1.1.2/24          0.0.0.0           00:50:79:66:68:01  10002  127.0.0.1:10003
+       fe80::250:79ff:fe66:6801/64
+
+-node3
+VPCS> show
+
+NAME   IP/MASK              GATEWAY           MAC                LPORT  RHOST:PORT
+VPCS1  10.1.1.3/24          0.0.0.0           00:50:79:66:68:02  10010  127.0.0.1:10011
+       fe80::250:79ff:fe66:6802/64
+```
+
+🌞 Effectuer des ping d'une machine à l'autre
+
+```sh
+Voire dossier ping.pcap2
+```
+
+     
 
 
