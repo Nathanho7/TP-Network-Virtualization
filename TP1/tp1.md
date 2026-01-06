@@ -145,8 +145,45 @@ VPCS1  10.1.1.3/24          0.0.0.0           00:50:79:66:68:02  10010  127.0.0.
 🌞 Effectuer des ping d'une machine à l'autre
 
 ```sh
-Voire dossier ping.pcap2
+
+Voir dossier ping.pcap2
 ```
+
+# 4. ARP old friend
+
+🌞 Afficher la table ARP de node1
+
+```sh
+VPCS> arp
+
+arp table is empty
+
+VPCS> ping 10.1.1.2
+84 bytes from 10.1.1.2 icmp_seq=1 ttl=64 time=0.750 ms
+84 bytes from 10.1.1.2 icmp_seq=2 ttl=64 time=1.028 ms
+84 bytes from 10.1.1.2 icmp_seq=3 ttl=64 time=1.145 ms
+84 bytes from 10.1.1.2 icmp_seq=4 ttl=64 time=2.926 ms
+84 bytes from 10.1.1.2 icmp_seq=5 ttl=64 time=1.733 ms
+
+VPCS> ping 10.1.1.3
+84 bytes from 10.1.1.3 icmp_seq=1 ttl=64 time=2.288 ms
+84 bytes from 10.1.1.3 icmp_seq=2 ttl=64 time=2.422 ms
+84 bytes from 10.1.1.3 icmp_seq=3 ttl=64 time=0.694 ms
+84 bytes from 10.1.1.3 icmp_seq=4 ttl=64 time=2.870 ms
+84 bytes from 10.1.1.3 icmp_seq=5 ttl=64 time=2.780 ms
+
+VPCS> arp
+
+00:50:79:66:68:01  10.1.1.2 expires in 99 seconds
+00:50:79:66:68:02  10.1.1.3 expires in 107 seconds
+```
+
+➜ Capturer un échange ARP
+```sh
+Voire ficher p2_arp_node2.pcap
+```
+
+
 
      
 
