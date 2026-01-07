@@ -244,39 +244,23 @@ Complete!
 -Config:
 
 ```sh
-[gustave@vbox ~]$ sudo vi /etc/dhcp/dhcpd.conf
+#
 # DHCP Server Configuration file.
 #   see /usr/share/doc/dhcp-server/dhcpd.conf.example
 #   see dhcpd.conf(5) man page
 
-# specify domain name
-option domain-name     "tp1.efrei";
-
-# specify DNS server's IP address
-option domain-name-servers     8.8.8.8;
-
-# default lease time
 default-lease-time 600;
-
-# max lease time
 max-lease-time 7200;
-
-# this DHCP server to be declared valid
 authoritative;
 
 # specify network address and subnetmask
 subnet 10.1.1.0 netmask 255.255.255.0 {
-    # specify the range of lease IP address (10.1.1.10 à 10.1.1.50)
-    range dynamic-bootp 10.1.1.10 10.1.1.50;
+    # range of addresses requested  : 10.1.1.10 à 10.1.1.50
+    range 10.1.1.10 10.1.1.50;
 
-    # specify broadcast address
-    option broadcast-address 10.1.1.255;
-
-    # specify gateway (ton adresse de serveur)
+    # specify gateway
     option routers 10.1.1.253;
 }
-[gustave@vbox ~]$ sudo systemctl enable --now dhcpd
-Created symlink /etc/systemd/system/multi-user.target.wants/dhcpd.service → /usr/lib/systemd/system/dhcpd.service.
 ```
 
 4. Proof or you're lying¶
@@ -284,20 +268,38 @@ Created symlink /etc/systemd/system/multi-user.target.wants/dhcpd.service → /u
 
 -node1
 ```sh
-VPCS> ip dhcp
+node1> ip dhcp
 DDORA IP 10.1.1.10/24 GW 10.1.1.253
+node1> show
+
+NAME   IP/MASK              GATEWAY           MAC                LPORT  RHOST:PORT
+node1  10.1.1.10/24         10.1.1.253        00:50:79:66:68:00  10002  127.0.0.1:10003
+       fe80::250:79ff:fe66:6800/64
+
 ```
 
 -node2
 ```sh
 VPCS> ip dhcp
 DDORA IP 10.1.1.11/24 GW 10.1.1.253
+node2> show
+
+NAME   IP/MASK              GATEWAY           MAC                LPORT  RHOST:PORT
+node2  10.1.1.11/24         10.1.1.253        00:50:79:66:68:01  10006  127.0.0.1:10007
+       fe80::250:79ff:fe66:6801/64
+
 ```
 
 -node3
 ```sh
 VPCS> ip dhcp
 DDORA IP 10.1.1.12/24 GW 10.1.1.253
+node3> show
+
+NAME   IP/MASK              GATEWAY           MAC                LPORT  RHOST:PORT
+node3  10.1.1.12/24         10.1.1.253        00:50:79:66:68:03  10010  127.0.0.1:10011
+       fe80::250:79ff:fe66:6803/64
+
 ```
 
 ➜ Wireshark !
@@ -310,82 +312,142 @@ Voir 📁 p3_dhcp.pcap
 🌞 Bail DHCP
 ```sh
 [gustave@vbox ~]$ sudo cat /var/lib/dhcpd/dhcpd.leases
+[sudo] password for gustave:
 # The format of this file is documented in the dhcpd.leases(5) manual page.
 # This lease file was written by isc-dhcp-4.4.2b1
 
 # authoring-byte-order entry is generated, DO NOT DELETE
 authoring-byte-order little-endian;
 
+lease 10.1.1.10 {
+  starts 3 2026/01/07 03:16:19;
+  ends 3 2026/01/07 03:26:19;
+  tstp 3 2026/01/07 03:26:19;
+  cltt 3 2026/01/07 03:16:19;
+  binding state free;
+  hardware ethernet 00:50:79:66:68:00;
+  uid "\001\000Pyfh\000";
+}
+lease 10.1.1.12 {
+  starts 3 2026/01/07 03:16:34;
+  ends 3 2026/01/07 03:26:34;
+  tstp 3 2026/01/07 03:26:34;
+  cltt 3 2026/01/07 03:16:34;
+  binding state free;
+  hardware ethernet 00:50:79:66:68:03;
+  uid "\001\000Pyfh\003";
+}
+lease 10.1.1.11 {
+  starts 3 2026/01/07 03:55:51;
+  ends 3 2026/01/07 04:02:41;
+  tstp 3 2026/01/07 04:02:41;
+  cltt 3 2026/01/07 03:55:51;
+  binding state free;
+  hardware ethernet 00:50:79:66:68:01;
+  uid "\001\000Pyfh\001";
+}
+lease 10.1.1.14 {
+  starts 3 2026/01/07 04:11:48;
+  ends 3 2026/01/07 04:21:48;
+  tstp 3 2026/01/07 04:21:48;
+  cltt 3 2026/01/07 04:11:48;
+  binding state free;
+  hardware ethernet 00:50:79:66:68:02;
+  uid "\001\000Pyfh\002";
+}
+lease 10.1.1.13 {
+  starts 3 2026/01/07 04:14:22;
+  ends 3 2026/01/07 04:24:22;
+  tstp 3 2026/01/07 04:24:22;
+  cltt 3 2026/01/07 04:14:22;
+  binding state free;
+  hardware ethernet 08:00:27:07:c2:0a;
+  uid "\001\010\000'\007\302\012";
+}
+lease 10.1.1.15 {
+  starts 3 2026/01/07 03:58:18;
+  ends 4 2026/01/08 03:58:18;
+  tstp 4 2026/01/08 03:58:18;
+  cltt 3 2026/01/07 03:58:18;
+  binding state abandoned;
+  next binding state free;
+  rewind binding state free;
+  client-hostname "VPCS1";
+}
 server-duid "\000\001\000\0010\360\177\377\010\000'\362z\315";
 
 lease 10.1.1.10 {
-  starts 3 2026/01/07 02:24:49;
-  ends 3 2026/01/07 02:34:49;
-  cltt 3 2026/01/07 02:24:49;
+  starts 3 2026/01/07 04:28:25;
+  ends 3 2026/01/07 04:38:25;
+  cltt 3 2026/01/07 04:28:25;
   binding state active;
   next binding state free;
   rewind binding state free;
   hardware ethernet 00:50:79:66:68:00;
   uid "\001\000Pyfh\000";
-  client-hostname "VPCS1";
+  client-hostname "node11";
 }
 lease 10.1.1.11 {
-  starts 3 2026/01/07 02:24:56;
-  ends 3 2026/01/07 02:34:56;
-  cltt 3 2026/01/07 02:24:56;
+  starts 3 2026/01/07 04:29:51;
+  ends 3 2026/01/07 04:39:51;
+  cltt 3 2026/01/07 04:29:51;
   binding state active;
   next binding state free;
   rewind binding state free;
   hardware ethernet 00:50:79:66:68:01;
   uid "\001\000Pyfh\001";
-  client-hostname "VPCS1";
+  client-hostname "node21";
 }
 lease 10.1.1.12 {
-  starts 3 2026/01/07 02:25:02;
-  ends 3 2026/01/07 02:35:02;
-  cltt 3 2026/01/07 02:25:02;
+  starts 3 2026/01/07 04:30:27;
+  ends 3 2026/01/07 04:40:27;
+  cltt 3 2026/01/07 04:30:27;
   binding state active;
   next binding state free;
   rewind binding state free;
   hardware ethernet 00:50:79:66:68:03;
   uid "\001\000Pyfh\003";
-  client-hostname "VPCS1";
+  client-hostname "node31";
 }
 ```
 
 🌞 Use grep
 
 ```sh
-[gustave@vbox ~]$ sudo cat /var/lib/dhcpd/dhcpd.leases | grep "client-hostname \"VPCS1\";"
-[sudo] password for gustave:
-  client-hostname "VPCS1";
-  client-hostname "VPCS1";
-  client-hostname "VPCS1";
-  client-hostname "VPCS1";
-  client-hostname "VPCS1";
-  client-hostname "VPCS1";
+
 [gustave@vbox ~]$ sudo cat /var/lib/dhcpd/dhcpd.leases | grep -A 9 "lease 10.1.1.10"
 lease 10.1.1.10 {
-  starts 3 2026/01/07 02:24:49;
-  ends 3 2026/01/07 02:34:49;
-  cltt 3 2026/01/07 02:24:49;
-  binding state active;
-  next binding state free;
-  rewind binding state free;
+  starts 3 2026/01/07 03:16:19;
+  ends 3 2026/01/07 03:26:19;
+  tstp 3 2026/01/07 03:26:19;
+  cltt 3 2026/01/07 03:16:19;
+  binding state free;
   hardware ethernet 00:50:79:66:68:00;
   uid "\001\000Pyfh\000";
-  client-hostname "VPCS1";
+}
+lease 10.1.1.12 {
 --
 lease 10.1.1.10 {
-  starts 3 2026/01/07 02:31:01;
-  ends 3 2026/01/07 02:41:01;
-  cltt 3 2026/01/07 02:31:01;
+  starts 3 2026/01/07 04:28:25;
+  ends 3 2026/01/07 04:38:25;
+  cltt 3 2026/01/07 04:28:25;
   binding state active;
   next binding state free;
   rewind binding state free;
   hardware ethernet 00:50:79:66:68:00;
   uid "\001\000Pyfh\000";
-  client-hostname "VPCS1";
+  client-hostname "node11";
+--
+lease 10.1.1.10 {
+  starts 3 2026/01/07 04:33:29;
+  ends 3 2026/01/07 04:43:29;
+  cltt 3 2026/01/07 04:33:29;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:50:79:66:68:00;
+  uid "\001\000Pyfh\000";
+  client-hostname "node11";
 ```
 
 
@@ -411,35 +473,56 @@ subnet 10.1.1.0 netmask 255.255.255.0 {
 }
 ```
 
+```sh
+[gustave@vbox ~]$ sudo systemctl enable --now dhcpd
+Created symlink /etc/systemd/system/multi-user.target.wants/dhcpd.service → /usr/lib/systemd/system/dhcpd.service.
+[gustave@vbox ~]$ sudo firewall-cmd --add-service=dhcp
+success
+[gustave@vbox ~]$ sudo firewall-cmd --runtime-to-permanent
+success
+```
+
 🌞 Test !
 
- -kill dhcp
+ -stop stop and stop dhcp
  
 ```sh
 [gustave@vbox ~]$ sudo systemctl stop dhcpd
-[gustave@vbox ~]$ systemctl status dhcpd
+[sudo] password for gustave:
+[gustave@vbox ~]$ sudo systemctl status dhcpd
 ○ dhcpd.service - DHCPv4 Server Daemon
      Loaded: loaded (/usr/lib/systemd/system/dhcpd.service; enabled; preset: disabled)
-     Active: inactive (dead) since Wed 2026-01-07 04:18:01 CET; 10s ago
-   Duration: 55min 5.391s
+     Active: inactive (dead) since Wed 2026-01-07 05:57:41 CET; 10s ago
        Docs: man:dhcpd(8)
              man:dhcpd.conf(5)
-    Process: 11348 ExecStart=/usr/sbin/dhcpd -f -cf /etc/dhcp/dhcpd.conf -user dhcpd -group dhcpd --n>
-   Main PID: 11348 (code=killed, signal=TERM)
+    Process: 837 ExecStart=/usr/sbin/dhcpd -f -cf /etc/dhcp/dhcpd.conf -user dhcpd -group dhcpd --no->
+   Main PID: 837 (code=killed, signal=TERM)
      Status: "Dispatching packets..."
-        CPU: 292ms
+        CPU: 151ms
+
+Jan 07 05:53:37 vbox dhcpd[837]: DHCPACK on 10.1.1.10 to 00:50:79:66:68:00 (node11) via enp0s9
+Jan 07 05:55:03 vbox dhcpd[837]: DHCPREQUEST for 10.1.1.11 (10.1.1.253) from 00:50:79:66:68:01 (node2>
+Jan 07 05:55:03 vbox dhcpd[837]: DHCPACK on 10.1.1.11 to 00:50:79:66:68:01 (node21) via enp0s9
+Jan 07 05:55:39 vbox dhcpd[837]: DHCPREQUEST for 10.1.1.12 (10.1.1.253) from 00:50:79:66:68:03 (node3>
+Jan 07 05:55:39 vbox dhcpd[837]: DHCPACK on 10.1.1.12 to 00:50:79:66:68:03 (node31) via enp0s9
+Jan 07 05:56:10 vbox dhcpd[837]: DHCPREQUEST for 10.1.1.16 from 08:00:27:23:d1:11 via enp0s9
+Jan 07 05:56:10 vbox dhcpd[837]: DHCPACK on 10.1.1.16 to 08:00:27:23:d1:11 via enp0s9
+Jan 07 05:57:41 vbox systemd[1]: Stopping DHCPv4 Server Daemon...
+Jan 07 05:57:41 vbox systemd[1]: dhcpd.service: Deactivated successfully.
+Jan 07 05:57:41 vbox systemd[1]: Stopped DHCPv4 Server Daemon.
 ```
 
- - test VPCS ( node2 par exemple)
+ - test VPCS ( node3 par exemple)
 
    ```sh
-   VPCS> ip dhcp
-   DDORA IP 10.1.1.210/24 GW 10.1.1.253
-   ```
+  node3> ip dhcp
+  DORA IP 10.1.1.212/24 GW 10.0.2.15
+    ```
 
-  ## B. Race !
+     
+     
+## B. Race !
 
-  
   ```sh
   [gustave@vbox ~]$ sudo systemctl start dhcpd
 [sudo] password for gustave:
@@ -472,28 +555,28 @@ Jan 07 04:35:14 vbox systemd[1]: Started DHCPv4 Server Daemon.
 
 ```
 Node 1:
-VPCS> ip dhcp
-DORA IP 10.1.1.212/24 GW 10.1.1.253
+node1> ip dhcp
+DORA IP 10.1.1.210/24 GW 10.0.2.15
+
 
 Node2:
-VPCS> ip dhcp
-DORA IP 10.1.1.210/24 GW 10.1.1.13
+node2> ip dhcp
+DORA IP 10.1.1.211/24 GW 10.0.2.15
 
-Node3:
-VPCS> ip dhcp
-DORA IP 10.1.1.211/24 GW 10.1.1.13
+
+Node3: 
+node3> ip dhcp
+DORA IP 10.1.1.12/24 GW 10.1.1.253
 
 Node4 (new):
-VPCS> ip dhcp IP 10.1.1.214/24
-DORA IP 10.1.1.14/24 GW 10.1.1.253
+
+node4> ip dhcp IP 10.1.1.214/24
+DORA IP 10.1.1.23/24 GW 10.1.1.253
+
 
 Node5 (new):
-VPCS> ip dhcp
-DORA IP 10.1.1.215/24 GW 10.1.1.13
-
-Node6 (new):
-VPCS> ip dhcp
-DORA IP 10.1.1.216/24 GW 10.1.1.13
+node5> ip dhcp
+DORA IP 10.1.1.213/24 GW 10.0.2.15
 ```
 
 ➜ Wireshark this please
