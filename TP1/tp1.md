@@ -309,6 +309,238 @@ Voir 📁 p3_dhcp.pcap
 
 🌞 Bail DHCP
 ```sh
+[gustave@vbox ~]$ cat /var/lib/dhcpd/dhcpd.leases
+# The format of this file is documented in the dhcpd.leases(5) manual page.
+# This lease file was written by isc-dhcp-4.4.2b1
+
+# authoring-byte-order entry is generated, DO NOT DELETE
+authoring-byte-order little-endian;
+
+server-duid "\000\001\000\0010\357\366\243\010\000'9\324\263";
+
+lease 10.1.1.10 {
+  starts 2 2026/01/06 16:38:06;
+  ends 2 2026/01/06 16:48:06;
+  cltt 2 2026/01/06 16:38:06;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:50:79:66:68:03;
+  uid "\001\000Pyfh\003";
+  client-hostname "VPCS1";
+}
+lease 10.1.1.11 {
+  starts 2 2026/01/06 16:39:10;
+  ends 2 2026/01/06 16:49:10;
+  cltt 2 2026/01/06 16:39:10;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:50:79:66:68:04;
+  uid "\001\000Pyfh\004";
+  client-hostname "VPCS1";
+}
+lease 10.1.1.10 {
+  starts 2 2026/01/06 16:43:10;
+  ends 2 2026/01/06 16:53:10;
+  cltt 2 2026/01/06 16:43:10;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:50:79:66:68:03;
+  uid "\001\000Pyfh\003";
+  client-hostname "VPCS1";
+}
+lease 10.1.1.11 {
+  starts 2 2026/01/06 16:44:15;
+  ends 2 2026/01/06 16:54:15;
+  cltt 2 2026/01/06 16:44:15;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:50:79:66:68:04;
+  uid "\001\000Pyfh\004";
+  client-hostname "VPCS1";
+}
+lease 10.1.1.10 {
+  starts 2 2026/01/06 16:48:12;
+  ends 2 2026/01/06 16:58:12;
+  cltt 2 2026/01/06 16:48:12;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:50:79:66:68:03;
+  uid "\001\000Pyfh\003";
+  client-hostname "VPCS1";
+}
+lease 10.1.1.11 {
+  starts 2 2026/01/06 16:49:17;
+  ends 2 2026/01/06 16:59:17;
+  cltt 2 2026/01/06 16:49:17;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:50:79:66:68:04;
+  uid "\001\000Pyfh\004";
+  client-hostname "VPCS1";
+}
+lease 10.1.1.12 {
+  starts 2 2026/01/06 16:49:57;
+  ends 2 2026/01/06 16:59:57;
+  cltt 2 2026/01/06 16:49:57;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:50:79:66:68:05;
+  uid "\001\000Pyfh\005";
+  client-hostname "VPCS1";
+}
+lease 10.1.1.10 {
+  starts 2 2026/01/06 16:53:14;
+  ends 2 2026/01/06 17:03:14;
+  cltt 2 2026/01/06 16:53:14;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:50:79:66:68:03;
+  uid "\001\000Pyfh\003";
+  client-hostname "VPCS1";
+}
+lease 10.1.1.11 {
+  starts 2 2026/01/06 16:54:19;
+  ends 2 2026/01/06 17:04:19;
+  cltt 2 2026/01/06 16:54:19;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:50:79:66:68:04;
+  uid "\001\000Pyfh\004";
+  client-hostname "VPCS1";
+}
+lease 10.1.1.12 {
+  starts 2 2026/01/06 16:55:02;
+  ends 2 2026/01/06 17:05:02;
+  cltt 2 2026/01/06 16:55:02;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:50:79:66:68:05;
+  uid "\001\000Pyfh\005";
+  client-hostname "VPCS1";
+}
+lease 10.1.1.10 {
+  starts 2 2026/01/06 16:58:37;
+  ends 2 2026/01/06 17:08:37;
+  cltt 2 2026/01/06 16:58:37;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:50:79:66:68:03;
+  uid "\001\000Pyfh\003";
+  client-hostname "VPCS1";
+}
+lease 10.1.1.11 {
+  starts 2 2026/01/06 17:00:05;
+  ends 2 2026/01/06 17:10:05;
+  cltt 2 2026/01/06 17:00:05;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:50:79:66:68:04;
+  uid "\001\000Pyfh\004";
+  client-hostname "VPCS1";
+}
+lease 10.1.1.12 {
+  starts 2 2026/01/06 17:00:46;
+  ends 2 2026/01/06 17:10:46;
+  cltt 2 2026/01/06 17:00:46;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:50:79:66:68:05;
+  uid "\001\000Pyfh\005";
+  client-hostname "VPCS1";
+}
+lease 10.1.1.10 {
+  starts 2 2026/01/06 17:03:39;
+  ends 2 2026/01/06 17:13:39;
+  cltt 2 2026/01/06 17:03:39;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:50:79:66:68:03;
+  uid "\001\000Pyfh\003";
+  client-hostname "VPCS1";
+}
+```
+
+🌞 Use grep
+
+```sh
+[gustave@vbox ~]$ sudo cat /var/lib/dhcpd/dhcpd.leases | grep -E "lease|hardware ethernet|client-hostname"
+# The format of this file is documented in the dhcpd.leases(5) manual page.
+# This lease file was written by isc-dhcp-4.4.2b1
+lease 10.1.1.10 {
+  hardware ethernet 00:50:79:66:68:03;
+  client-hostname "VPCS1";
+lease 10.1.1.11 {
+  hardware ethernet 00:50:79:66:68:04;
+  client-hostname "VPCS1";
+lease 10.1.1.10 {
+  hardware ethernet 00:50:79:66:68:03;
+  client-hostname "VPCS1";
+lease 10.1.1.11 {
+  hardware ethernet 00:50:79:66:68:04;
+  client-hostname "VPCS1";
+lease 10.1.1.10 {
+  hardware ethernet 00:50:79:66:68:03;
+  client-hostname "VPCS1";
+lease 10.1.1.11 {
+  hardware ethernet 00:50:79:66:68:04;
+  client-hostname "VPCS1";
+lease 10.1.1.12 {
+  hardware ethernet 00:50:79:66:68:05;
+  client-hostname "VPCS1";
+lease 10.1.1.10 {
+  hardware ethernet 00:50:79:66:68:03;
+  client-hostname "VPCS1";
+lease 10.1.1.11 {
+  hardware ethernet 00:50:79:66:68:04;
+  client-hostname "VPCS1";
+lease 10.1.1.12 {
+  hardware ethernet 00:50:79:66:68:05;
+  client-hostname "VPCS1";
+lease 10.1.1.10 {
+  hardware ethernet 00:50:79:66:68:03;
+  client-hostname "VPCS1";
+lease 10.1.1.11 {
+  hardware ethernet 00:50:79:66:68:04;
+  client-hostname "VPCS1";
+lease 10.1.1.12 {
+  hardware ethernet 00:50:79:66:68:05;
+  client-hostname "VPCS1";
+lease 10.1.1.10 {
+  hardware ethernet 00:50:79:66:68:03;
+  client-hostname "VPCS1";
+lease 10.1.1.11 {
+  hardware ethernet 00:50:79:66:68:04;
+  client-hostname "VPCS1";
+lease 10.1.1.12 {
+  hardware ethernet 00:50:79:66:68:05;
+  client-hostname "VPCS1";
+```
+
+# Part 4 : real haxor
+
+## 1. DHCP spoofing¶
+### A. Setup
+
+🌞 Installez et configurez un serveur DHCP sur votre machine attaquante
+
+```sh
+
+
+
 
 
 
