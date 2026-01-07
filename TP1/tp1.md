@@ -309,162 +309,41 @@ Voir 📁 p3_dhcp.pcap
 
 🌞 Bail DHCP
 ```sh
-[gustave@vbox ~]$ cat /var/lib/dhcpd/dhcpd.leases
+[gustave@vbox ~]$ sudo cat /var/lib/dhcpd/dhcpd.leases
 # The format of this file is documented in the dhcpd.leases(5) manual page.
 # This lease file was written by isc-dhcp-4.4.2b1
 
 # authoring-byte-order entry is generated, DO NOT DELETE
 authoring-byte-order little-endian;
 
-server-duid "\000\001\000\0010\357\366\243\010\000'9\324\263";
+server-duid "\000\001\000\0010\360\177\377\010\000'\362z\315";
 
 lease 10.1.1.10 {
-  starts 2 2026/01/06 16:38:06;
-  ends 2 2026/01/06 16:48:06;
-  cltt 2 2026/01/06 16:38:06;
+  starts 3 2026/01/07 02:24:49;
+  ends 3 2026/01/07 02:34:49;
+  cltt 3 2026/01/07 02:24:49;
   binding state active;
   next binding state free;
   rewind binding state free;
-  hardware ethernet 00:50:79:66:68:03;
-  uid "\001\000Pyfh\003";
+  hardware ethernet 00:50:79:66:68:00;
+  uid "\001\000Pyfh\000";
   client-hostname "VPCS1";
 }
 lease 10.1.1.11 {
-  starts 2 2026/01/06 16:39:10;
-  ends 2 2026/01/06 16:49:10;
-  cltt 2 2026/01/06 16:39:10;
+  starts 3 2026/01/07 02:24:56;
+  ends 3 2026/01/07 02:34:56;
+  cltt 3 2026/01/07 02:24:56;
   binding state active;
   next binding state free;
   rewind binding state free;
-  hardware ethernet 00:50:79:66:68:04;
-  uid "\001\000Pyfh\004";
-  client-hostname "VPCS1";
-}
-lease 10.1.1.10 {
-  starts 2 2026/01/06 16:43:10;
-  ends 2 2026/01/06 16:53:10;
-  cltt 2 2026/01/06 16:43:10;
-  binding state active;
-  next binding state free;
-  rewind binding state free;
-  hardware ethernet 00:50:79:66:68:03;
-  uid "\001\000Pyfh\003";
-  client-hostname "VPCS1";
-}
-lease 10.1.1.11 {
-  starts 2 2026/01/06 16:44:15;
-  ends 2 2026/01/06 16:54:15;
-  cltt 2 2026/01/06 16:44:15;
-  binding state active;
-  next binding state free;
-  rewind binding state free;
-  hardware ethernet 00:50:79:66:68:04;
-  uid "\001\000Pyfh\004";
-  client-hostname "VPCS1";
-}
-lease 10.1.1.10 {
-  starts 2 2026/01/06 16:48:12;
-  ends 2 2026/01/06 16:58:12;
-  cltt 2 2026/01/06 16:48:12;
-  binding state active;
-  next binding state free;
-  rewind binding state free;
-  hardware ethernet 00:50:79:66:68:03;
-  uid "\001\000Pyfh\003";
-  client-hostname "VPCS1";
-}
-lease 10.1.1.11 {
-  starts 2 2026/01/06 16:49:17;
-  ends 2 2026/01/06 16:59:17;
-  cltt 2 2026/01/06 16:49:17;
-  binding state active;
-  next binding state free;
-  rewind binding state free;
-  hardware ethernet 00:50:79:66:68:04;
-  uid "\001\000Pyfh\004";
+  hardware ethernet 00:50:79:66:68:01;
+  uid "\001\000Pyfh\001";
   client-hostname "VPCS1";
 }
 lease 10.1.1.12 {
-  starts 2 2026/01/06 16:49:57;
-  ends 2 2026/01/06 16:59:57;
-  cltt 2 2026/01/06 16:49:57;
-  binding state active;
-  next binding state free;
-  rewind binding state free;
-  hardware ethernet 00:50:79:66:68:05;
-  uid "\001\000Pyfh\005";
-  client-hostname "VPCS1";
-}
-lease 10.1.1.10 {
-  starts 2 2026/01/06 16:53:14;
-  ends 2 2026/01/06 17:03:14;
-  cltt 2 2026/01/06 16:53:14;
-  binding state active;
-  next binding state free;
-  rewind binding state free;
-  hardware ethernet 00:50:79:66:68:03;
-  uid "\001\000Pyfh\003";
-  client-hostname "VPCS1";
-}
-lease 10.1.1.11 {
-  starts 2 2026/01/06 16:54:19;
-  ends 2 2026/01/06 17:04:19;
-  cltt 2 2026/01/06 16:54:19;
-  binding state active;
-  next binding state free;
-  rewind binding state free;
-  hardware ethernet 00:50:79:66:68:04;
-  uid "\001\000Pyfh\004";
-  client-hostname "VPCS1";
-}
-lease 10.1.1.12 {
-  starts 2 2026/01/06 16:55:02;
-  ends 2 2026/01/06 17:05:02;
-  cltt 2 2026/01/06 16:55:02;
-  binding state active;
-  next binding state free;
-  rewind binding state free;
-  hardware ethernet 00:50:79:66:68:05;
-  uid "\001\000Pyfh\005";
-  client-hostname "VPCS1";
-}
-lease 10.1.1.10 {
-  starts 2 2026/01/06 16:58:37;
-  ends 2 2026/01/06 17:08:37;
-  cltt 2 2026/01/06 16:58:37;
-  binding state active;
-  next binding state free;
-  rewind binding state free;
-  hardware ethernet 00:50:79:66:68:03;
-  uid "\001\000Pyfh\003";
-  client-hostname "VPCS1";
-}
-lease 10.1.1.11 {
-  starts 2 2026/01/06 17:00:05;
-  ends 2 2026/01/06 17:10:05;
-  cltt 2 2026/01/06 17:00:05;
-  binding state active;
-  next binding state free;
-  rewind binding state free;
-  hardware ethernet 00:50:79:66:68:04;
-  uid "\001\000Pyfh\004";
-  client-hostname "VPCS1";
-}
-lease 10.1.1.12 {
-  starts 2 2026/01/06 17:00:46;
-  ends 2 2026/01/06 17:10:46;
-  cltt 2 2026/01/06 17:00:46;
-  binding state active;
-  next binding state free;
-  rewind binding state free;
-  hardware ethernet 00:50:79:66:68:05;
-  uid "\001\000Pyfh\005";
-  client-hostname "VPCS1";
-}
-lease 10.1.1.10 {
-  starts 2 2026/01/06 17:03:39;
-  ends 2 2026/01/06 17:13:39;
-  cltt 2 2026/01/06 17:03:39;
+  starts 3 2026/01/07 02:25:02;
+  ends 3 2026/01/07 02:35:02;
+  cltt 3 2026/01/07 02:25:02;
   binding state active;
   next binding state free;
   rewind binding state free;
@@ -477,58 +356,39 @@ lease 10.1.1.10 {
 🌞 Use grep
 
 ```sh
-[gustave@vbox ~]$ sudo cat /var/lib/dhcpd/dhcpd.leases | grep -E "lease|hardware ethernet|client-hostname"
-# The format of this file is documented in the dhcpd.leases(5) manual page.
-# This lease file was written by isc-dhcp-4.4.2b1
+[gustave@vbox ~]$ sudo cat /var/lib/dhcpd/dhcpd.leases | grep "client-hostname \"VPCS1\";"
+[sudo] password for gustave:
+  client-hostname "VPCS1";
+  client-hostname "VPCS1";
+  client-hostname "VPCS1";
+  client-hostname "VPCS1";
+  client-hostname "VPCS1";
+  client-hostname "VPCS1";
+[gustave@vbox ~]$ sudo cat /var/lib/dhcpd/dhcpd.leases | grep -A 9 "lease 10.1.1.10"
 lease 10.1.1.10 {
-  hardware ethernet 00:50:79:66:68:03;
+  starts 3 2026/01/07 02:24:49;
+  ends 3 2026/01/07 02:34:49;
+  cltt 3 2026/01/07 02:24:49;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:50:79:66:68:00;
+  uid "\001\000Pyfh\000";
   client-hostname "VPCS1";
-lease 10.1.1.11 {
-  hardware ethernet 00:50:79:66:68:04;
-  client-hostname "VPCS1";
+--
 lease 10.1.1.10 {
-  hardware ethernet 00:50:79:66:68:03;
-  client-hostname "VPCS1";
-lease 10.1.1.11 {
-  hardware ethernet 00:50:79:66:68:04;
-  client-hostname "VPCS1";
-lease 10.1.1.10 {
-  hardware ethernet 00:50:79:66:68:03;
-  client-hostname "VPCS1";
-lease 10.1.1.11 {
-  hardware ethernet 00:50:79:66:68:04;
-  client-hostname "VPCS1";
-lease 10.1.1.12 {
-  hardware ethernet 00:50:79:66:68:05;
-  client-hostname "VPCS1";
-lease 10.1.1.10 {
-  hardware ethernet 00:50:79:66:68:03;
-  client-hostname "VPCS1";
-lease 10.1.1.11 {
-  hardware ethernet 00:50:79:66:68:04;
-  client-hostname "VPCS1";
-lease 10.1.1.12 {
-  hardware ethernet 00:50:79:66:68:05;
-  client-hostname "VPCS1";
-lease 10.1.1.10 {
-  hardware ethernet 00:50:79:66:68:03;
-  client-hostname "VPCS1";
-lease 10.1.1.11 {
-  hardware ethernet 00:50:79:66:68:04;
-  client-hostname "VPCS1";
-lease 10.1.1.12 {
-  hardware ethernet 00:50:79:66:68:05;
-  client-hostname "VPCS1";
-lease 10.1.1.10 {
-  hardware ethernet 00:50:79:66:68:03;
-  client-hostname "VPCS1";
-lease 10.1.1.11 {
-  hardware ethernet 00:50:79:66:68:04;
-  client-hostname "VPCS1";
-lease 10.1.1.12 {
-  hardware ethernet 00:50:79:66:68:05;
+  starts 3 2026/01/07 02:31:01;
+  ends 3 2026/01/07 02:41:01;
+  cltt 3 2026/01/07 02:31:01;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:50:79:66:68:00;
+  uid "\001\000Pyfh\000";
   client-hostname "VPCS1";
 ```
+
+
 
 # Part 4 : real haxor
 
@@ -538,6 +398,117 @@ lease 10.1.1.12 {
 🌞 Installez et configurez un serveur DHCP sur votre machine attaquante
 
 ```sh
+# Configuration Rogue DHCP
+authoritative;
+default-lease-time 600;
+max-lease-time 7200;
+
+# specify network address and subnetmask
+subnet 10.1.1.0 netmask 255.255.255.0 {
+
+# specify plage of attack (10.1.1.210 and 10.1.1.250)
+    range 10.1.1.210 10.1.1.250;
+}
+```
+
+🌞 Test !
+
+ -kill dhcp
+ 
+```sh
+[gustave@vbox ~]$ sudo systemctl stop dhcpd
+[gustave@vbox ~]$ systemctl status dhcpd
+○ dhcpd.service - DHCPv4 Server Daemon
+     Loaded: loaded (/usr/lib/systemd/system/dhcpd.service; enabled; preset: disabled)
+     Active: inactive (dead) since Wed 2026-01-07 04:18:01 CET; 10s ago
+   Duration: 55min 5.391s
+       Docs: man:dhcpd(8)
+             man:dhcpd.conf(5)
+    Process: 11348 ExecStart=/usr/sbin/dhcpd -f -cf /etc/dhcp/dhcpd.conf -user dhcpd -group dhcpd --n>
+   Main PID: 11348 (code=killed, signal=TERM)
+     Status: "Dispatching packets..."
+        CPU: 292ms
+```
+
+ - test VPCS ( node2 par exemple)
+
+   ```sh
+   VPCS> ip dhcp
+   DDORA IP 10.1.1.210/24 GW 10.1.1.253
+   ```
+
+  ## B. Race !
+
+  
+  ```sh
+  [gustave@vbox ~]$ sudo systemctl start dhcpd
+[sudo] password for gustave:
+[gustave@vbox ~]$ sudo systemctl status dhcpd
+● dhcpd.service - DHCPv4 Server Daemon
+     Loaded: loaded (/usr/lib/systemd/system/dhcpd.service; enabled; preset: disabled)
+     Active: active (running) since Wed 2026-01-07 04:35:14 CET; 1min 4s ago
+       Docs: man:dhcpd(8)
+             man:dhcpd.conf(5)
+   Main PID: 11595 (dhcpd)
+     Status: "Dispatching packets..."
+      Tasks: 1 (limit: 22979)
+     Memory: 4.7M (peak: 4.8M)
+        CPU: 76ms
+     CGroup: /system.slice/dhcpd.service
+             └─11595 /usr/sbin/dhcpd -f -cf /etc/dhcp/dhcpd.conf -user dhcpd -group dhcpd --no-pid
+
+Jan 07 04:35:14 vbox dhcpd[11595]:
+Jan 07 04:35:14 vbox dhcpd[11595]: No subnet declaration for enp0s3 (10.0.2.15).
+Jan 07 04:35:14 vbox dhcpd[11595]: ** Ignoring requests on enp0s3.  If this is not what
+Jan 07 04:35:14 vbox dhcpd[11595]:    you want, please write a subnet declaration
+Jan 07 04:35:14 vbox dhcpd[11595]:    in your dhcpd.conf file for the network segment
+Jan 07 04:35:14 vbox dhcpd[11595]:    to which interface enp0s3 is attached. **
+Jan 07 04:35:14 vbox dhcpd[11595]:
+Jan 07 04:35:14 vbox dhcpd[11595]: Sending on   Socket/fallback/fallback-net
+Jan 07 04:35:14 vbox dhcpd[11595]: Server starting service.
+Jan 07 04:35:14 vbox systemd[1]: Started DHCPv4 Server Daemon.
+
+```
+
+```
+Node 1:
+VPCS> ip dhcp
+DORA IP 10.1.1.212/24 GW 10.1.1.253
+
+Node2:
+VPCS> ip dhcp
+DORA IP 10.1.1.210/24 GW 10.1.1.13
+
+Node3:
+VPCS> ip dhcp
+DORA IP 10.1.1.211/24 GW 10.1.1.13
+
+Node4 (new):
+VPCS> ip dhcp IP 10.1.1.214/24
+DORA IP 10.1.1.14/24 GW 10.1.1.253
+
+Node5 (new):
+VPCS> ip dhcp
+DORA IP 10.1.1.215/24 GW 10.1.1.13
+
+Node6 (new):
+VPCS> ip dhcp
+DORA IP 10.1.1.216/24 GW 10.1.1.13
+```
+
+➜ Wireshark this please
+Voire 📁 p4_dhcp_race.pcap
+
+
+
+
+
+
+
+
+
+
+
 
 
 
