@@ -358,6 +358,178 @@ MTU:        : 1500
 Dispo dans 📁 p3_dhcp.pcap (use of node3)
 
 
+## 5. DHCP lease
+
+🌞 Bail DHCP
+
+```sh
+# The format of this file is documented in the dhcpd.leases(5) manual page.
+# This lease file was written by isc-dhcp-4.4.2b1
+
+# authoring-byte-order entry is generated, DO NOT DELETE
+authoring-byte-order little-endian;
+
+server-duid "\000\001\000\0010\361\260.\010\000'\370\227\343";
+
+lease 10.1.1.10 {
+  starts 4 2026/01/08 00:06:49;
+  ends 4 2026/01/08 00:16:49;
+  cltt 4 2026/01/08 00:06:49;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:50:79:66:68:00;
+  uid "\001\000Pyfh\000";
+  client-hostname "node11";
+}
+lease 10.1.1.11 {
+  starts 4 2026/01/08 00:06:56;
+  ends 4 2026/01/08 00:16:56;
+  cltt 4 2026/01/08 00:06:56;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:50:79:66:68:04;
+  uid "\001\000Pyfh\004";
+  client-hostname "node31";
+}
+lease 10.1.1.12 {
+  starts 4 2026/01/08 00:07:02;
+  ends 4 2026/01/08 00:17:02;
+  cltt 4 2026/01/08 00:07:02;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:50:79:66:68:01;
+  uid "\001\000Pyfh\001";
+  client-hostname "node21";
+}
+lease 10.1.1.10 {
+  starts 4 2026/01/08 00:11:53;
+  ends 4 2026/01/08 00:21:53;
+  cltt 4 2026/01/08 00:11:53;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:50:79:66:68:00;
+  uid "\001\000Pyfh\000";
+  client-hostname "node11";
+}
+lease 10.1.1.11 {
+  starts 4 2026/01/08 00:12:01;
+  ends 4 2026/01/08 00:22:01;
+  cltt 4 2026/01/08 00:12:01;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:50:79:66:68:04;
+  uid "\001\000Pyfh\004";
+  client-hostname "node31";
+}
+lease 10.1.1.12 {
+  starts 4 2026/01/08 00:12:06;
+  ends 4 2026/01/08 00:22:06;
+  cltt 4 2026/01/08 00:12:06;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:50:79:66:68:01;
+  uid "\001\000Pyfh\001";
+  client-hostname "node21";
+}
+lease 10.1.1.11 {
+  starts 4 2026/01/08 00:14:52;
+  ends 4 2026/01/08 00:24:52;
+  cltt 4 2026/01/08 00:14:52;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:50:79:66:68:04;
+  uid "\001\000Pyfh\004";
+  client-hostname "node31";
+}
+lease 10.1.1.10 {
+  starts 4 2026/01/08 00:16:55;
+  ends 4 2026/01/08 00:26:55;
+  cltt 4 2026/01/08 00:16:55;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:50:79:66:68:00;
+  uid "\001\000Pyfh\000";
+  client-hostname "node11";
+}
+lease 10.1.1.12 {
+  starts 4 2026/01/08 00:17:08;
+  ends 4 2026/01/08 00:27:08;
+  cltt 4 2026/01/08 00:17:08;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:50:79:66:68:01;
+  uid "\001\000Pyfh\001";
+  client-hostname "node21";
+}
+```
+
+🌞 Use grep
+
+```sh
+[gustave@vbox ~]$ cat /var/lib/dhcpd/dhcpd.leases | grep -A 10 "lease 10.1.1.11"
+lease 10.1.1.11 {
+  starts 4 2026/01/08 00:06:56;
+  ends 4 2026/01/08 00:16:56;
+  cltt 4 2026/01/08 00:06:56;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:50:79:66:68:04;
+  uid "\001\000Pyfh\004";
+  client-hostname "node31";
+}
+--
+lease 10.1.1.11 {
+  starts 4 2026/01/08 00:12:01;
+  ends 4 2026/01/08 00:22:01;
+  cltt 4 2026/01/08 00:12:01;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:50:79:66:68:04;
+  uid "\001\000Pyfh\004";
+  client-hostname "node31";
+}
+--
+lease 10.1.1.11 {
+  starts 4 2026/01/08 00:14:52;
+  ends 4 2026/01/08 00:24:52;
+  cltt 4 2026/01/08 00:14:52;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:50:79:66:68:04;
+  uid "\001\000Pyfh\004";
+  client-hostname "node31";
+}
+--
+lease 10.1.1.11 {
+  starts 4 2026/01/08 00:19:56;
+  ends 4 2026/01/08 00:29:56;
+  cltt 4 2026/01/08 00:19:56;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 00:50:79:66:68:04;
+  uid "\001\000Pyfh\004"; 
+  client-hostname "node31";
+}
+```
+
+
+
+
+
+
 
 
 
