@@ -86,10 +86,10 @@ node2> ping 10.1.1.1
 
 Voire node1.pcap and node2.pcap
 
-🌞 Protocolz ?
+🌞 Protocole 
 
 ```sh
-Protocole ICMP ( Internet 
+Protocole ICMP (Internet Control Message Protocol). Il sert principalement à vérifier si une machine est joignable (via la commande ping) et à signaler des erreurs de transmission. Il fonctionne en envoyant une demande (Echo Request) et pour recevoir (Echo Reply). Il fait partie de la couche 3 du modèle osi ( couche reseau)
 
 -Wireshark
 Dispo dans 📁 p1_ping.pcap
