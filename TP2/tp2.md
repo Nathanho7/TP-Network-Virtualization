@@ -248,8 +248,9 @@ efrei.fr.               20      IN      A       51.210.229.203
   
 C. Hax ?¶
 🌞 Relance ton attaque DHCP spoof depuis la machine attaquante
+-Ligne de conf modifié
 ```sh
- option domain-name-servers 10.2.1.188;
+dhcp-option=6,10.2.1.89
 ```
 
 🌞 Test test test :
@@ -280,6 +281,32 @@ efrei.fr resolved to 10.2.1.188
 ``` 
    
 
+```sh
+node7> ip dhcp
+DORA IP 10.2.1.234/24 GW 10.2.1.89
+
+node7> show ip
+
+NAME        : node7[1]
+IP/MASK     : 10.2.1.234/24
+GATEWAY     : 10.2.1.89
+DNS         : 10.2.1.89
+DHCP SERVER : 10.2.1.89
+DHCP LEASE  : 43183, 43200/21600/37800
+MAC         : 00:50:79:66:68:06
+LPORT       : 20026
+RHOST:PORT  : 127.0.0.1:20027
+MTU         : 1500
+
+node7> ping efrei.fr
+efrei.fr resolved to 10.2.1.89
+
+84 bytes from 10.2.1.89 icmp_seq=1 ttl=64 time=4.410 ms
+84 bytes from 10.2.1.89 icmp_seq=2 ttl=64 time=3.284 ms
+84 bytes from 10.2.1.89 icmp_seq=3 ttl=64 time=3.516 ms
+84 bytes from 10.2.1.89 icmp_seq=4 ttl=64 time=3.648 ms
+84 bytes from 10.2.1.89 icmp_seq=5 ttl=64 time=2.911 ms
+```
 
 
 
