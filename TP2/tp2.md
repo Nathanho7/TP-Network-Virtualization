@@ -130,6 +130,7 @@ efrei.fr resolved to 51.210.229.203
 
 ## 4. DHCP spoofing¶
 ### B. Proofs¶
+
 🌞 Test test test
 ```sh
 node6> ip dhcp
