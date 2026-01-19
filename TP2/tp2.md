@@ -236,9 +236,9 @@ efrei.fr.               413     IN      A       51.210.229.203
 ```
 
  - DIG2
-   ```sh
-  ┌──(kali㉿kali)-[~]
-    └─$ dig @127.0.0.1 efrei.fr
+    ```sh
+    ┌──(kali㉿kali)-[~]
+      └─$ dig @127.0.0.1 efrei.fr
     
     ; <<>> DiG 9.20.15-2-Debian <<>> @127.0.0.1 efrei.fr
     ; (1 server found)
