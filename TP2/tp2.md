@@ -94,9 +94,6 @@ efrei.fr resolved to 51.210.229.203
 🌞 Test test test 
 
 ```sh
-
-```
-```sh
 node5> ip dhcp
 DDORA IP 10.2.1.198/24 GW 10.2.1.254
 
