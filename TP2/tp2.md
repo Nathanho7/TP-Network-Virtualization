@@ -8,44 +8,30 @@
 * node1 peut ping node2
 ```sh
 node1> ping 10.2.1.12
-
-84 bytes from 10.2.1.12 icmp_seq=1 ttl=64 time=0.761 ms
-84 bytes from 10.2.1.12 icmp_seq=2 ttl=64 time=0.514 ms
-84 bytes from 10.2.1.12 icmp_seq=3 ttl=64 time=0.452 ms
-84 bytes from 10.2.1.12 icmp_seq=4 ttl=64 time=0.661 ms
-84 bytes from 10.2.1.12 icmp_seq=5 ttl=64 time=0.514 ms
-
+84 bytes from 10.2.1.12 icmp_seq=1 ttl=64 time=1.116 ms
+84 bytes from 10.2.1.12 icmp_seq=2 ttl=64 time=0.807 ms
 ```
+
 * node3 peut ping node4
   ```sh
   node3> ping 10.2.2.12
-
-  84 bytes from 10.2.2.12 icmp_seq=1 ttl=64 time=2.490 ms
-  84 bytes from 10.2.2.12 icmp_seq=2 ttl=64 time=0.522 ms
-  84 bytes from 10.2.2.12 icmp_seq=3 ttl=64 time=0.424 ms
-  84 bytes from 10.2.2.12 icmp_seq=4 ttl=64 time=0.568 ms
-  84 bytes from 10.2.2.12 icmp_seq=5 ttl=64 time=0.676 ms
+  84 bytes from 10.2.2.11 icmp_seq=1 ttl=63 time=51.351 ms
+  84 bytes from 10.2.2.11 icmp_seq=2 ttl=63 time=15.248 ms
   ```
 
  - le routage doit fonctionner :
    * node1 peut ping node3
      ```sh
      node1> ping 10.2.2.11
-      84 bytes from 10.2.2.11 icmp_seq=1 ttl=63 time=28.216 ms
-      84 bytes from 10.2.2.11 icmp_seq=2 ttl=63 time=12.137 ms
-      84 bytes from 10.2.2.11 icmp_seq=3 ttl=63 time=11.806 ms
-      84 bytes from 10.2.2.11 icmp_seq=4 ttl=63 time=13.580 ms
-      84 bytes from 10.2.2.11 icmp_seq=5 ttl=63 time=19.515 ms
+      84 bytes from 10.2.2.11 icmp_seq=1 ttl=63 time=51.351 ms
+      84 bytes from 10.2.2.11 icmp_seq=2 ttl=63 time=15.248 ms
     ```
+    
 * node4 peut ping node2
   ```sh
-  node4> ping 10.2.1.12
-
-  84 bytes from 10.2.1.12 icmp_seq=1 ttl=63 time=28.263 ms
-  84 bytes from 10.2.1.12 icmp_seq=2 ttl=63 time=20.456 ms
-  84 bytes from 10.2.1.12 icmp_seq=3 ttl=63 time=12.719 ms
-  84 bytes from 10.2.1.12 icmp_seq=4 ttl=63 time=16.258 ms
-  84 bytes from 10.2.1.12 icmp_seq=5 ttl=63 time=16.103 ms
+  
+    84 bytes from 10.2.1.12 icmp_seq=1 ttl=63 time=29.800 ms
+    84 bytes from 10.2.1.12 icmp_seq=2 ttl=63 time=22.071 ms
   ```
  ➜ Wireshark this shiet
  ```sh
@@ -58,32 +44,37 @@ node1> ping 10.2.1.12
 🌞 Prouver que...
 
 ```SH
-r1.tp2.efrei#ping  1.1.1.1
+r1.tp2.efrei#ping 1.1.1.1
 
 Type escape sequence to abort.
 Sending 5, 100-byte ICMP Echos to 1.1.1.1, timeout is 2 seconds:
 !!!!!
-Success rate is 100 percent (5/5), round-trip min/avg/max = 16/24/36
+Success rate is 100 percent (5/5), round-trip min/avg/max = 20/65/100 ms
 
-msnode1> ping 1.1.1.1
+node1> ping 1.1.1.1
+
 1.1.1.1 icmp_seq=1 timeout
 1.1.1.1 icmp_seq=2 timeout
-1.1.1.1 icmp_seq=3 timeout
-1.1.1.1 icmp_seq=4 timeout
-1.1.1.1 icmp_seq=5 timeout
+
 ```
 
 ## 2. Accès internet clients
 
 ```sh
-node3>  ping 1.1.1.1
 
-84 bytes from 1.1.1.1 icmp_seq=1 ttl=253 time=30.857 ms
-84 bytes from 1.1.1.1 icmp_seq=2 ttl=253 time=32.959 ms
-84 bytes from 1.1.1.1 icmp_seq=3 ttl=253 time=34.179 ms
-84 bytes from 1.1.1.1 icmp_seq=4 ttl=253 time=26.647 ms
-84 bytes from 1.1.1.1 icmp_seq=5 ttl=253 time=28.490 ms
-Pour le reste des VPCS ils ont aussi accès à internet
+node2> ping 1.1.1.1
+
+84 bytes from 1.1.1.1 icmp_seq=1 ttl=253 time=40.436 ms
+84 bytes from 1.1.1.1 icmp_seq=2 ttl=253 time=33.790 ms
+
+node3> ping 1.1.1.1
+
+84 bytes from 1.1.1.1 icmp_seq=1 ttl=253 time=30.683 ms
+84 bytes from 1.1.1.1 icmp_seq=2 ttl=253 time=33.646 ms
+node4> ping 1.1.1.1
+
+84 bytes from 1.1.1.1 icmp_seq=1 ttl=253 time=29.844 ms
+84 bytes from 1.1.1.1 icmp_seq=2 ttl=253 time=25.598 ms
 ```
 
 ## 3. Vrai accès internet clients¶
@@ -94,11 +85,8 @@ Pour le reste des VPCS ils ont aussi accès à internet
 node1> ping efrei.fr
 efrei.fr resolved to 51.210.229.203
 
-84 bytes from 51.210.229.203 icmp_seq=1 ttl=253 time=50.502 ms
-84 bytes from 51.210.229.203 icmp_seq=2 ttl=253 time=39.780 ms
-84 bytes from 51.210.229.203 icmp_seq=3 ttl=253 time=37.430 ms
-84 bytes from 51.210.229.203 icmp_seq=4 ttl=253 time=26.568 ms
-84 bytes from 51.210.229.203 icmp_seq=5 ttl=253 time=32.975 ms
+84 bytes from 51.210.229.203 icmp_seq=1 ttl=253 time=27.494 ms
+84 bytes from 51.210.229.203 icmp_seq=2 ttl=253 time=29.751 ms
 ```
 
 ## 4. DHCP again
@@ -106,47 +94,68 @@ efrei.fr resolved to 51.210.229.203
 🌞 Test test test 
 
 ```sh
+
+```
+```sh
 node5> ip dhcp
-DORA IP 10.2.1.100/24 GW 10.2.1.254
-```
-```sh
-node5> show
+DDORA IP 10.2.1.198/24 GW 10.2.1.254
 
-NAME   IP/MASK              GATEWAY           MAC                LPORT  RHOST:PORT
-node5  10.2.1.100/24        10.2.1.254        00:50:79:66:68:04  20026  127.0.0.1:20027
-       fe80::250:79ff:fe66:6804/64
-```
+node5> show ip
 
-```sh
+NAME        : PC5[1]
+IP/MASK     : 10.2.1.198/24
+GATEWAY     : 10.2.1.254
+DNS         : 1.1.1.1
+DHCP SERVER : 10.2.1.253
+DHCP LEASE  : 593, 600/300/525
+MAC         : 00:50:79:66:68:01
+LPORT       : 20018
+RHOST:PORT  : 127.0.0.1:20019
+MTU         : 1500
+
 node5> ping efrei.fr
 efrei.fr resolved to 51.210.229.203
 
-84 bytes from 51.210.229.203 icmp_seq=1 ttl=253 time=30.481 ms
-84 bytes from 51.210.229.203 icmp_seq=2 ttl=253 time=42.941 ms
-84 bytes from 51.210.229.203 icmp_seq=3 ttl=253 time=38.548 ms
-84 bytes from 51.210.229.203 icmp_seq=4 ttl=253 time=39.979 ms
-84 bytes from 51.210.229.203 icmp_seq=5 ttl=253 time=38.153 ms
+84 bytes from 51.210.229.203 icmp_seq=1 ttl=253 time=46.715 ms
+84 bytes from 51.210.229.203 icmp_seq=2 ttl=253 time=40.354 ms
 ```
+
 
 # Part3 : Time to attack all this
 
 ## 3. ARP spoofing
+```sh
+  -dispo dans 📁 p3_arp_mitm.pcap
+```
 
+## 4. DHCP spoofing¶
+### B. Proofs¶
+🌞 Test test test
+```sh
+node6> ip dhcp
+DDORA IP 10.2.1.233/24 GW 10.2.1.89
 
+node6> show ip
 
+NAME        : node6[1]
+IP/MASK     : 10.2.1.233/24
+GATEWAY     : 10.2.1.89
+DNS         : 1.1.1.1
+DHCP SERVER : 10.2.1.89
+DHCP LEASE  : 43096, 43200/21600/37800
+MAC         : 00:50:79:66:68:05
+LPORT       : 20023
+RHOST:PORT  : 127.0.0.1:20024
+MTU         : 1500
 
+node6> ping efrei.fr
+efrei.fr resolved to 51.210.229.203
 
+84 bytes from 51.210.229.203 icmp_seq=1 ttl=253 time=29.995 ms
+84 bytes from 51.210.229.203 icmp_seq=2 ttl=253 time=36.758 ms
+```
 
-
-
-
-
-
-
-
-
-
-
+-Wireshark dispo dans  p3_dhcp_mitm.pcap
 
 
 
